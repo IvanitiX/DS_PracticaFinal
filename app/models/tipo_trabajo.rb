@@ -1,0 +1,2 @@
+class TipoTrabajo < ApplicationRecord
+end

@@ -1,0 +1,22 @@
+<%= form_with(model: tipo_trabajo) do |form| %>
+  <% if tipo_trabajo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tipo_trabajo.errors.count, "error") %> prohibited this tipo_trabajo from being saved:</h2>
+
+      <ul>
+        <% tipo_trabajo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :Tipo %>
+    <%= form.text_field :Tipo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

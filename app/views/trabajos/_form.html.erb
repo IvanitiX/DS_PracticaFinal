@@ -1,0 +1,32 @@
+<%= form_with(model: trabajo) do |form| %>
+  <% if trabajo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trabajo.errors.count, "error") %> prohibited this trabajo from being saved:</h2>
+
+      <ul>
+        <% trabajo.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :descripcion %>
+    <%= form.text_field :descripcion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :localizacion %>
+    <%= form.text_field :localizacion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :presupuesto %>
+    <%= form.text_field :presupuesto %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
