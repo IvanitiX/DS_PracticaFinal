@@ -1,4 +1,5 @@
 <%= form_with(model: cliente) do |form| %>
+<div class = "formulario">
   <% if cliente.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(cliente.errors.count, "error") %> prohibited this cliente from being saved:</h2>
@@ -38,5 +39,6 @@
 
   <div class="actions">
     <%= form.submit %>
+  </div>
   </div>
 <% end %>

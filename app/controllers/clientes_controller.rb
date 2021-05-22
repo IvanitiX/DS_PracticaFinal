@@ -1,3 +1,5 @@
+require 'digest'
+
 class ClientesController < ApplicationController
   before_action :set_cliente, only: %i[ show edit update destroy ]
 
@@ -21,14 +23,25 @@ class ClientesController < ApplicationController
 
   # POST /clientes or /clientes.json
   def create
-    @cliente = Cliente.new(cliente_params)
+    create_params = cliente_params
+    hash = Digest::SHA2.new
+    clave = create_params[:contrasena]
+    clave = hash.hexdigest(clave)
+    create_params[:contrasena] = clave
+    @cliente = Cliente.new(create_params)
 
     respond_to do |format|
       if @cliente.save
-        format.html { redirect_to @cliente, notice: "Cliente was successfully created." }
+        format.html { redirect_to @cliente, notice: "El Cliente se ha creado correctamente" }
         format.json { render :show, status: :created, location: @cliente }
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @cliente.errors, status: :unprocessable_entity }
+      end
+    rescue Exception => e
+      if e.is_a? ActiveRecord::RecordNotUnique
+        Rails.logger.warn(e)
+        format.html { render :new, status: :unprocessable_entity, notice: "El Correo ya está en uso"  }
         format.json { render json: @cliente.errors, status: :unprocessable_entity }
       end
     end
@@ -38,7 +51,7 @@ class ClientesController < ApplicationController
   def update
     respond_to do |format|
       if @cliente.update(cliente_params)
-        format.html { redirect_to @cliente, notice: "Cliente was successfully updated." }
+        format.html { redirect_to @cliente, notice: "El Cliente se ha actualizado correctamente" }
         format.json { render :show, status: :ok, location: @cliente }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +64,7 @@ class ClientesController < ApplicationController
   def destroy
     @cliente.destroy
     respond_to do |format|
-      format.html { redirect_to clientes_url, notice: "Cliente was successfully destroyed." }
+      format.html { redirect_to clientes_url, notice: "El Cliente se ha borrado correctamente" }
       format.json { head :no_content }
     end
   end

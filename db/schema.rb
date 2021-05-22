@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.string "contrasena", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["correo"], name: "correo", unique: true
   end
 
   create_table "tecnicos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -27,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.string "apellidos", null: false
     t.decimal "valoracion", precision: 10, default: "5", null: false
     t.string "tipo_tecnico", limit: 256, null: false
-    t.integer "num_trabajos", null: false
+    t.integer "num_trabajos", default: 0, null: false
     t.string "contrasena", null: false
     t.string "email", null: false
     t.index ["email"], name: "email", unique: true
