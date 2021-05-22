@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DS8</title>
+    <title>SOSEMADO Client View</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,16 @@
   </head>
 
   <body>
+  <nav>
+        <ul class="menu">
+            <li class="opcion_nav">
+              <%= link_to image_tag("logo.png") + content_tag(:p, "SOSEMADO"), root_path, class:"logo" %>
+            </li>
+            <li class="opcion_nav"><%= link_to content_tag(:p, "Mis trabajos"), trabajos_path %></a></li>
+            <li class="opcion_nav"><%= link_to content_tag(:p, "Mis clientes"), clientes_path %></a></li>
+            <li class="opcion_nav_right"><%= link_to content_tag(:p, "Iniciar sesión"), root_path %></a></li>
+          </ul> 
+    </nav>  
     <%= yield %>
   </body>
 </html>

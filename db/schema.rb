@@ -22,8 +22,20 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "tecnicos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "nombre", null: false
+    t.string "apellidos", null: false
+    t.decimal "valoracion", precision: 10, default: "5", null: false
+    t.string "tipo_tecnico", limit: 256, null: false
+    t.integer "num_trabajos", null: false
+    t.string "contrasena", null: false
+    t.string "email", null: false
+    t.index ["email"], name: "email", unique: true
+    t.index ["tipo_tecnico"], name: "Foreign_TipoTrabajo"
+  end
+
   create_table "tipo_trabajos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "Tipo"
+    t.string "Tipo", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["Tipo"], name: "Tipo", unique: true
@@ -36,7 +48,9 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "tipotrabajo"
-    t.index ["tipotrabajo"], name: "index_trabajos_on_tipotrabajo"
+    t.index ["tipotrabajo"], name: "TipoTrabajoInTrabajos"
   end
 
+  add_foreign_key "tecnicos", "tipo_trabajos", column: "tipo_tecnico", primary_key: "Tipo", name: "Foreign_TipoTrabajo"
+  add_foreign_key "trabajos", "tipo_trabajos", column: "tipotrabajo", primary_key: "Tipo", name: "TipoTrabajoInTrabajos"
 end

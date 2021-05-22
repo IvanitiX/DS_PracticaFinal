@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOSEMADO Clients View</title>
+</head>
+<body>
+    <style>
+        nav{
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        ul.menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgb(0, 90, 192);
+          }
+          
+          li.opcion_nav {
+            float: left;
+          }
+          
+          li.opcion_nav a, li.opcion_nav_right a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          }
+
+          li.opcion_nav_right{
+            float: right;
+          }
+
+          li.opcion_nav a.logo{
+              padding: 12px 10px;
+          }
+
+          .logo>img{
+            float: left;
+              width: 25%;
+              margin-right: 0;
+          }
+
+          .logo p{
+              font-size: 110%;
+          }
+
+          .opcion_nav a:hover, .opcion_nav_right a:hover{
+                background-color: rgb(10, 62, 122);
+          }
+    </style>
+    <nav>
+        <ul class="menu">
+            <li class="opcion_nav"><a href="#" class="logo"><img src="logo.png" alt="Logo de SOSEMADO" > <p>SOSEMADO</p></a></li>
+            <li class="opcion_nav"><a href="default.asp"><p>Mis trabajos</p></a></li>
+            <li class="opcion_nav"><a href="news.asp"><p>Mi perfil</p></a></li>
+            <li class="opcion_nav_right"><a href="about.asp"><p>Iniciar sesión</p></a></li>
+          </ul> 
+    </nav>
+</body>
+</html>
