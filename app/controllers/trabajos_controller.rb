@@ -3,25 +3,42 @@ class TrabajosController < ApplicationController
 
   # GET /trabajos or /trabajos.json
   def index
-    @trabajos = Trabajo.all
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
+    @trabajos = Trabajo.where(Id_cliente: session[:user_id])
+    #puts @trabajos[:descripcion]
   end
 
   # GET /trabajos/1 or /trabajos/1.json
   def show
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
   end
-
   # GET /trabajos/new
   def new
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
     @trabajo = Trabajo.new
   end
 
   # GET /trabajos/1/edit
   def edit
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
   end
 
   # POST /trabajos or /trabajos.json
   def create
-    @trabajo = Trabajo.new(trabajo_params)
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
+    create_params = trabajo_params
+    create_params[:Id_cliente] = session[:user_id]
+    @trabajo = Trabajo.new(create_params)
 
     respond_to do |format|
       if @trabajo.save
@@ -36,6 +53,9 @@ class TrabajosController < ApplicationController
 
   # PATCH/PUT /trabajos/1 or /trabajos/1.json
   def update
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
     respond_to do |format|
       if @trabajo.update(trabajo_params)
         format.html { redirect_to @trabajo, notice: "Trabajo was successfully updated." }
@@ -49,6 +69,9 @@ class TrabajosController < ApplicationController
 
   # DELETE /trabajos/1 or /trabajos/1.json
   def destroy
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
     @trabajo.destroy
     respond_to do |format|
       format.html { redirect_to trabajos_url, notice: "Trabajo was successfully destroyed." }

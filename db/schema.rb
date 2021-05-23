@@ -49,9 +49,13 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "tipotrabajo"
+    t.bigint "Id_tecnico", null: false
+    t.bigint "Id_cliente", null: false
+    t.index ["Id_cliente"], name: "IDClienteInClientes"
     t.index ["tipotrabajo"], name: "TipoTrabajoInTrabajos"
   end
 
   add_foreign_key "tecnicos", "tipo_trabajos", column: "tipo_tecnico", primary_key: "Tipo", name: "Foreign_TipoTrabajo"
+  add_foreign_key "trabajos", "clientes", column: "Id_cliente", name: "IDClienteInClientes"
   add_foreign_key "trabajos", "tipo_trabajos", column: "tipotrabajo", primary_key: "Tipo", name: "TipoTrabajoInTrabajos"
 end

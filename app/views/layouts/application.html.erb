@@ -16,11 +16,17 @@
             <li class="opcion_nav">
               <%= link_to image_tag("logo.png") + content_tag(:p, "SOSEMADO"), root_path, class:"logo" %>
             </li>
-            <li class="opcion_nav"><%= link_to content_tag(:p, "Mis trabajos"), trabajos_path %></a></li> 
-            <li class="opcion_nav_right"><%= link_to content_tag(:p, "Regístrate"), "/clientes/new" %></a></li>
-            <li class="opcion_nav_right"><%= link_to content_tag(:p, "Iniciar sesión"), root_path %></a></li>
-            <li class="opcion_nav_right"><%= link_to content_tag(:p, "Cerrar sesión"), clientes_path %></a></li>
-            <li class="opcion_nav_right"><%= link_to content_tag(:p, "Mi perfil"), clientes_path %></a></li>
+            <% if session[:user_id] != nil %>
+              <li class="opcion_nav"><%= link_to content_tag(:p, "Mis trabajos"), trabajos_path %></a></li> 
+            <%end%>
+
+            <% if session[:user_id] == nil %>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Regístrate"), "/clientes/new" %></a></li>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Iniciar sesión"), "/login" %></a></li>
+            <% else %>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Cerrar sesión"), "/logout" %></a></li>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Mi perfil"), clientes_path %></a></li>
+            <% end %>
           </ul> 
     </nav>  
     <%= yield %>

@@ -2,6 +2,7 @@
 
 <h1>Trabajos</h1>
 
+<% if @trabajos != nil %>
 <table>
   <thead>
     <tr>
@@ -25,6 +26,9 @@
     <% end %>
   </tbody>
 </table>
+<% else %>
+  <h3>¡Sin registros!<h3>
+<% end %>
 
 <br>
 

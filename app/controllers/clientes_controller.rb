@@ -3,13 +3,11 @@ require 'digest'
 class ClientesController < ApplicationController
   before_action :set_cliente, only: %i[ show edit update destroy ]
 
-  # GET /clientes or /clientes.json
-  def index
-    @clientes = Cliente.all
-  end
-
   # GET /clientes/1 or /clientes/1.json
   def show
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
   end
 
   # GET /clientes/new
@@ -17,8 +15,19 @@ class ClientesController < ApplicationController
     @cliente = Cliente.new
   end
 
+  def profile
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    else
+      @cliente = Cliente.find_by(id: session[:user_id])
+    end
+  end
+
   # GET /clientes/1/edit
   def edit
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
   end
 
   # POST /clientes or /clientes.json
@@ -32,6 +41,7 @@ class ClientesController < ApplicationController
 
     respond_to do |format|
       if @cliente.save
+        session[:user_id] = @cliente.id
         format.html { redirect_to @cliente, notice: "El Cliente se ha creado correctamente" }
         format.json { render :show, status: :created, location: @cliente }
       else
@@ -49,6 +59,10 @@ class ClientesController < ApplicationController
 
   # PATCH/PUT /clientes/1 or /clientes/1.json
   def update
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
+
     respond_to do |format|
       if @cliente.update(cliente_params)
         format.html { redirect_to @cliente, notice: "El Cliente se ha actualizado correctamente" }
@@ -62,6 +76,10 @@ class ClientesController < ApplicationController
 
   # DELETE /clientes/1 or /clientes/1.json
   def destroy
+    if session[:user_id] == nil
+      redirect_back_or root_path
+    end
+
     @cliente.destroy
     respond_to do |format|
       format.html { redirect_to clientes_url, notice: "El Cliente se ha borrado correctamente" }
