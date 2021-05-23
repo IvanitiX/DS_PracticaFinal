@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get '/logout',  to: 'sessions#destroy'
       post '/logout',  to: 'sessions#destroy'
       delete '/logout',  to: 'sessions#destroy'
+      get '/profile', to: 'clientes#profile'
 end
 
 

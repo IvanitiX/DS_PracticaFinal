@@ -17,15 +17,18 @@
               <%= link_to image_tag("logo.png") + content_tag(:p, "SOSEMADO"), root_path, class:"logo" %>
             </li>
             <% if session[:user_id] != nil %>
-              <li class="opcion_nav"><%= link_to content_tag(:p, "Mis trabajos"), trabajos_path %></a></li> 
+              <li class="opcion_nav"><%= link_to content_tag(:p, "Mis trabajos"), trabajos_path %></li> 
+              <li class="opcion_nav"><%= link_to content_tag(:p, "Crear trabajo"), new_trabajo_path %></a></li> 
             <%end%>
 
             <% if session[:user_id] == nil %>
               <li class="opcion_nav_right"><%= link_to content_tag(:p, "Regístrate"), "/clientes/new" %></a></li>
               <li class="opcion_nav_right"><%= link_to content_tag(:p, "Iniciar sesión"), "/login" %></a></li>
             <% else %>
+              <% cliente = Cliente.find_by(id: session[:user_id]) %>
               <li class="opcion_nav_right"><%= link_to content_tag(:p, "Cerrar sesión"), "/logout" %></a></li>
-              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Mi perfil"), clientes_path %></a></li>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Mi perfil"), "/profile " %></a></li>
+              <li class="opcion_nav_right"><%= link_to content_tag(:p, "Logeado como #{cliente[:nombre]} #{cliente[:apellidos]}"), "#"  %></li> 
             <% end %>
           </ul> 
     </nav>  
