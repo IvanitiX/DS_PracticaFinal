@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 
         if(clave == user[:contrasena])
             log_in user
-            redirect_back_or user
+            redirect_back_or root_path
         else
             message = 'Invalid password'
             render 'new', notice: message
