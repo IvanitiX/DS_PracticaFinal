@@ -21,14 +21,16 @@
     <%= form.text_field :localizacion %>
   </div>
 
+  <!-- Vamos a hacer un desplegable -->
   <div class="field">
-    <%= form.label :presupuesto %>
-    <%= form.text_field :presupuesto %>
+	  <%= form.label :tipotrabajo %>
+	  <%= form.collection_select :tipotrabajo, TipoTrabajo.all, :Tipo, :Tipo %>
   </div>
+
 
   <div class="actions">
     <%= form.submit %>
   </div>
 
-  
+
 <% end %>

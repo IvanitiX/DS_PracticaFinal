@@ -1,8 +1,7 @@
 <% if session[:user_id] == nil%>
     <%= redirect_back_or root_path %>
 <% end %>
-<h1>New Trabajo</h1>
+<h1>Describa su problema :)</h1>
 
 <%= render 'form', trabajo: @trabajo %>
-
 <%= link_to 'Back', trabajos_path %>

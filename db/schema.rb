@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_150755) do
+ActiveRecord::Schema.define(version: 2021_05_24_154715) do
 
   create_table "clientes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "nombre", null: false
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["correo"], name: "correo", unique: true
+  end
+
+  create_table "estado_propuesta", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "estado"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["estado"], name: "index_estado_propuesta_on_estado", unique: true
+  end
+
+  create_table "propuesta", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "tecnico_id", null: false
+    t.bigint "trabajo_id", null: false
+    t.bigint "estado_propuesta_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["estado_propuesta_id"], name: "index_propuesta_on_estado_propuesta_id"
+    t.index ["tecnico_id"], name: "index_propuesta_on_tecnico_id"
+    t.index ["trabajo_id"], name: "index_propuesta_on_trabajo_id"
   end
 
   create_table "tecnicos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -49,13 +67,18 @@ ActiveRecord::Schema.define(version: 2021_05_18_150755) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "tipotrabajo"
-    t.bigint "Id_tecnico", null: false
+    t.bigint "Id_tecnico"
     t.bigint "Id_cliente", null: false
     t.index ["Id_cliente"], name: "IDClienteInClientes"
+    t.index ["Id_tecnico"], name: "TecnicosAsignadosRegistrados"
     t.index ["tipotrabajo"], name: "TipoTrabajoInTrabajos"
   end
 
+  add_foreign_key "propuesta", "estado_propuesta", column: "estado_propuesta_id"
+  add_foreign_key "propuesta", "tecnicos"
+  add_foreign_key "propuesta", "trabajos"
   add_foreign_key "tecnicos", "tipo_trabajos", column: "tipo_tecnico", primary_key: "Tipo", name: "Foreign_TipoTrabajo"
   add_foreign_key "trabajos", "clientes", column: "Id_cliente", name: "IDClienteInClientes"
+  add_foreign_key "trabajos", "tecnicos", column: "Id_tecnico", name: "TecnicosAsignadosRegistrados"
   add_foreign_key "trabajos", "tipo_trabajos", column: "tipotrabajo", primary_key: "Tipo", name: "TipoTrabajoInTrabajos"
 end

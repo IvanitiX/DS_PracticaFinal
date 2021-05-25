@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<h1 id="notice"><%= notice %></h1>
 
 <p>
   <strong>Descripcion:</strong>
@@ -12,7 +12,17 @@
 
 <p>
   <strong>Presupuesto:</strong>
-  <%= @trabajo.presupuesto %>
+  <!-- Esto es ruby embebido, hay que usar porcentajes para cada linea -->
+	<% if @trabajo.presupuesto %>
+		<%= @trabajo.presupuesto %>
+	<% else %>
+		Aún no hay presupuesto asignado
+	<% end %>
+</p>
+
+<p>
+  <strong>Tipo de trabajo:</strong>
+  <%= @trabajo.tipotrabajo%>
 </p>
 
 <%= link_to 'Edit', edit_trabajo_path(@trabajo) %> |

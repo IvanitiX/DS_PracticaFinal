@@ -80,11 +80,17 @@ class ClientesController < ApplicationController
       redirect_back_or root_path
     end
 
+	 # Eliminar la sesion para destruir correctamente
+	 session[:user_id] = nil
+
     @cliente.destroy
     respond_to do |format|
       format.html { redirect_to clientes_url, notice: "El Cliente se ha borrado correctamente" }
       format.json { head :no_content }
     end
+
+	 # Eliminar la sesion si se destruyó
+	 session[:user_id] = nil
   end
 
   private

@@ -9,8 +9,11 @@
       <th>Descripcion</th>
       <th>Localizacion</th>
       <th>Presupuesto</th>
-      <th colspan="3"></th>
-    </tr>
+		<th>Tipo trabajo</th>
+
+		<th colspan="3"> Acciones</th>
+
+	 </tr>
   </thead>
 
   <tbody>
@@ -18,10 +21,17 @@
       <tr>
         <td><%= trabajo.descripcion %></td>
         <td><%= trabajo.localizacion %></td>
-        <td><%= trabajo.presupuesto %></td>
-        <td><%= link_to 'Show', trabajo %></td>
-        <td><%= link_to 'Edit', edit_trabajo_path(trabajo) %></td>
-        <td><%= link_to 'Destroy', trabajo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+			  <% if trabajo.presupuesto %>
+			  		<%= trabajo.presupuesto %>
+			  <% else %>
+			  		No hay presupuesto todavía
+			  <% end %>
+		  </td>
+		  <td><%= trabajo.tipotrabajo %></td>
+        <td><%= link_to 'Mostrar', trabajo %></td>
+        <td><%= link_to 'Editar', edit_trabajo_path(trabajo) %></td>
+        <td><%= link_to 'Eliminar', trabajo, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +42,4 @@
 
 <br>
 
-<%= link_to 'New Trabajo', new_trabajo_path %>
+<%= link_to 'Añadir un nuevo trabajo', new_trabajo_path %>
