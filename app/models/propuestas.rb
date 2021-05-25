@@ -1,0 +1,2 @@
+class Propuestas < ApplicationRecord
+end

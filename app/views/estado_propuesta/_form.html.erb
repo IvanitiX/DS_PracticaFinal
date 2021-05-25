@@ -1,0 +1,22 @@
+<%= form_with(model: estado_propuestum) do |form| %>
+  <% if estado_propuestum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(estado_propuestum.errors.count, "error") %> prohibited this estado_propuestum from being saved:</h2>
+
+      <ul>
+        <% estado_propuestum.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :estado %>
+    <%= form.text_field :estado %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
