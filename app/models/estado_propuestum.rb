@@ -1,0 +1,2 @@
+class EstadoPropuestum < ApplicationRecord
+end

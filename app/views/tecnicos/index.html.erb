@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tecnicos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Email</th>
+      <th>Valoracion</th>
+		<th>Tipo tecnico</th>
+      <th colspan="3">Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tecnicos.each do |tecnico| %>
+      <tr>
+        <td><%= tecnico.nombre %></td>
+        <td><%= tecnico.apellidos %></td>
+        <td><%= tecnico.email %></td>
+        <td><%= tecnico.valoracion %></td>
+		  <td><%= tecnico.tipo_tecnico %></td>
+
+        <td><%= link_to 'Mostrar', tecnico %></td>
+        <td><%= link_to 'Editar', edit_tecnico_path(tecnico) %></td>
+        <td><%= link_to 'Eliminar', tecnico, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Añadir nuevo técnico', new_tecnico_path %>
