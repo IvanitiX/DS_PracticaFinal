@@ -5,9 +5,11 @@ module Api
 skip_before_action :verify_authenticity_token
 
 def show
-      @tecnico = Tecnico.find_by(id: params[:id])
+		@tecnico = Tecnico.where("email like '%#{params[:id]}%'")
+#		@tecnico = Tecnico.find_by(id: params[:id])
+
       if (@tecnico!=nil)
-        render json: @tecnico, status: :ok
+        render json: @tecnico[0], status: :ok
   else
        render json: :nothing, status: :not_found
     end
