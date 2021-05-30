@@ -108,7 +108,7 @@ class TrabajosController < ApplicationController
 			 seleccion = " SELECT * FROM tecnicos "
 			 # condiciones = " WHERE valoracion > #{valoracion} AND num_trabajos < #{num_trabajos} ";
 			 condiciones = " WHERE valoracion > 5 AND num_trabajos < 10";
-			 preferencia = " ORDER BY valoracion DESC, num_valoraciones DESC, num_trabajos ASC "
+			 preferencia = " ORDER BY valoracion DESC, num_trabajos ASC "
 
 			 consulta = seleccion + condiciones + preferencia;
 

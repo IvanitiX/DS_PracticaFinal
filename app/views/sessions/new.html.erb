@@ -1,8 +1,12 @@
-<h1 class='text-center'>Iniciar sesión</h1>
+
 <p id="notice"><%= notice %></p>
-<div class="row">
-  <div class="formulario">
-    <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+
+<div class="centrado">
+    <div class="titulo">
+        <h1 class='text-center'>Iniciar sesión</h1>
+    </div>
+    <div class="cuerpo_centro">
+        <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
 
       <%= f.label "Correo:" %>
       <%= f.email_field :email, class: 'form-control', required: true %>
@@ -12,6 +16,5 @@
 
       <%= f.submit "Iniciar sesión" %>
     <% end %>
-
-  </div>
+    </div>
 </div>

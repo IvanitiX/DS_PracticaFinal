@@ -1,29 +1,41 @@
 <h1 id="notice"><%= notice %></h1>
 
-<p>
-  <strong>Descripcion:</strong>
-  <%= @trabajo.descripcion %>
-</p>
 
-<p>
-  <strong>Localizacion:</strong>
-  <%= @trabajo.localizacion %>
-</p>
 
-<p>
-  <strong>Presupuesto:</strong>
-  <!-- Esto es ruby embebido, hay que usar porcentajes para cada linea -->
-	<% if @trabajo.presupuesto %>
-		<%= @trabajo.presupuesto %>
-	<% else %>
-		Aún no hay presupuesto asignado
-	<% end %>
-</p>
+<div class="centrado">
+  <div class="titulo">
+    <h1>Trabajo</h1>
+  </div>
 
-<p>
-  <strong>Tipo de trabajo:</strong>
-  <%= @trabajo.tipotrabajo%>
-</p>
+  <div class="cuerpo_centro">
+      <p>
+        <strong>Descripcion:</strong>
+        <%= @trabajo.descripcion %>
+      </p>
 
-<%= link_to 'Edit', edit_trabajo_path(@trabajo) %> |
-<%= link_to 'Back', trabajos_path %>
+      <p>
+        <strong>Localizacion:</strong>
+        <%= @trabajo.localizacion %>
+      </p>
+
+      <p>
+        <strong>Presupuesto:</strong>
+        <!-- Esto es ruby embebido, hay que usar porcentajes para cada linea -->
+        <% if @trabajo.presupuesto %>
+          <%= @trabajo.presupuesto %>
+        <% else %>
+          Aún no hay presupuesto asignado
+        <% end %>
+      </p>
+
+      <p>
+        <strong>Tipo de trabajo:</strong>
+        <%= @trabajo.tipotrabajo%>
+      </p>
+
+      <%= link_to 'Edit', edit_trabajo_path(@trabajo) %> |
+      <%= link_to 'Back', trabajos_path %>
+
+  </div>
+</div>
+

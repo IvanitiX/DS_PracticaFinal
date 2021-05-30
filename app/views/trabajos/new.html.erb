@@ -1,7 +1,13 @@
 <% if session[:user_id] == nil%>
     <%= redirect_back_or root_path %>
 <% end %>
-<h1>Describa su problema :)</h1>
 
-<%= render 'form', trabajo: @trabajo %>
-<%= link_to 'Back', trabajos_path %>
+<div class="centrado">
+    <div class="titulo">
+        <h1>Describa su problema :)</h1>
+    </div>
+    <div class="cuerpo_centro">
+       <%= render 'form', trabajo: @trabajo %>
+        <%= link_to 'Back', trabajos_path %>
+    </div>
+</div>

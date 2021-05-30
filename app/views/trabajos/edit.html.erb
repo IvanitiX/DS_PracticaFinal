@@ -1,6 +1,11 @@
-<h1>Editing Trabajo</h1>
+<div class="centrado">
+    <div class="titulo">
+        <h1>Editando Trabajo</h1>
+    </div>
+    <div class="cuerpo_centro">
+        <%= render 'form', trabajo: @trabajo %>
 
-<%= render 'form', trabajo: @trabajo %>
-
-<%= link_to 'Show', @trabajo %> |
-<%= link_to 'Back', trabajos_path %>
+        <%= link_to 'Show', @trabajo %> |
+        <%= link_to 'Back', trabajos_path %>
+    </div>
+</div>

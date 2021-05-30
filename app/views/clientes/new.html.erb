@@ -1,7 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Registro de clientes</h1>
+<div class="centrado">
+  <div class="titulo">
+    <h1>Registro de clientes</h1>
+  </div>
 
-<%= render 'form', cliente: @cliente %>
+  <div class="cuerpo_centro">
+      <%= render 'form', cliente: @cliente %>
 
-<%= link_to 'Back', clientes_path %>
+      <%= link_to 'Back', clientes_path %>
+
+  </div>
+</div>
+
+
+
+

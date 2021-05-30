@@ -1,26 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<div class="formulario">
-  <p>
-    <strong>Nombre:</strong>
-    <%= @cliente.nombre %>
-  </p>
+<div class="centrado">
+  <div class="titulo">
+    <h1>Perfil</h1>
+  </div>
 
-  <p>
-    <strong>Apellidos:</strong>
-    <%= @cliente.apellidos %>
-  </p>
+  <div class="cuerpo_centro">
+      <p>
+        <strong>Nombre:</strong>
+        <%= @cliente.nombre %>
+      </p>
 
-  <p>
-    <strong>Domicilio:</strong>
-    <%= @cliente.domicilio %>
-  </p>
+      <p>
+        <strong>Apellidos:</strong>
+        <%= @cliente.apellidos %>
+      </p>
 
-  <p>
-    <strong>Correo:</strong>
-    <%= @cliente.correo %>
-  </p>
+      <p>
+        <strong>Domicilio:</strong>
+        <%= @cliente.domicilio %>
+      </p>
+
+      <p>
+        <strong>Correo:</strong>
+        <%= @cliente.correo %>
+      </p>
+
+    <%= link_to 'Edit', edit_cliente_path(@cliente) %> |
+    <%= link_to 'Back', clientes_path %>
+
+  </div>
 </div>
-
-<%= link_to 'Edit', edit_cliente_path(@cliente) %> |
-<%= link_to 'Back', clientes_path %>

@@ -1,1 +1,47 @@
-Hola pana
+<% if session[:user_id] == nil %>
+<div class="centrado">
+    <div class="titulo">
+        <h1> Bienvenido a SOSEMADO </h1>
+    </div>
+    <div class="cuerpo_centro">
+        <p>
+            SOSEMADO es un Sistema Software para realizar tareas de Mantenimiento a Domicilio a través de técncios de tu zona. Crea un trabajo y un técnico será asignado.
+            Si lo aceptas, sólo queda acordar el precio, ponerse manos a la obra y, tras ello, podrás valorar su trabajo.
+        </p>
+        <p><a href="/login">Inicia sesión</a> o <a href="/clientes/new">Regístrate</a></p>
+    </div>
+</div>
+
+<% else %>
+<div class="centrado">
+    <div class="titulo">
+        <% cliente = Cliente.find_by(id: session[:user_id]) %>
+        <%= content_tag(:h1, "Bienvenid@, #{cliente[:nombre]}") %>
+    </div>
+
+    <div class="cuerpo_centro">
+        <p>Panel de control:</p>
+        <div class="tarjeta">
+            <a href=<%= trabajos_path %>>
+                <%= image_tag "source_icons_app-notification.svg", class: "imagen_tarjeta" %>
+                <p>Mis trabajos pendientes</p>
+            </a>
+        </div>
+        <div class="tarjeta">
+            <a href=<%= new_trabajo_path %>>
+                <%= image_tag "source_icons_add-circled-outline.svg", class: "imagen_tarjeta"  %>
+                <p>Crear un trabajo</p>
+            </a>
+        </div>
+        <div class="tarjeta">
+            <a href="/profile ">
+                <%= image_tag "source_icons_profile-circled.svg", class: "imagen_tarjeta"  %>
+                <p>Mi perfil</p>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<% end %>
