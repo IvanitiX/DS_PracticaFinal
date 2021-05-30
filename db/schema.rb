@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2021_05_24_154715) do
   end
 
   create_table "estado_propuesta", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "estado"
+    t.string "estado", default: "PENDIENTE"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["estado"], name: "index_estado_propuesta_on_estado", unique: true
@@ -34,11 +34,17 @@ ActiveRecord::Schema.define(version: 2021_05_24_154715) do
     t.bigint "tecnico_id", null: false
     t.bigint "trabajo_id", null: false
     t.bigint "estado_propuesta_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.string "estado", default: "PENDIENTE"
     t.index ["estado_propuesta_id"], name: "index_propuesta_on_estado_propuesta_id"
     t.index ["tecnico_id"], name: "index_propuesta_on_tecnico_id"
     t.index ["trabajo_id"], name: "index_propuesta_on_trabajo_id"
+  end
+
+  create_table "propuestas", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "tecnico"
+    t.bigint "trabajo"
+    t.column "estado", "enum('CONFIRMADO','CONFIRMADA','RECHAZADO','RECHAZADA','PENDIENTE')", default: "PENDIENTE"
+    t.float "presupuesto", default: -1.0
   end
 
   create_table "tecnicos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
