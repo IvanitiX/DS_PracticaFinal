@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
       namespace :api, defaults: { format: 'json' }  do
          namespace :v1 do
-        	resources :clientes, :tipo_trabajos, :tecnicos, :trabajos, :propuestas
+        	   resources :clientes, :tipo_trabajos, :tecnicos, :trabajos, :propuestas
+              get '/propuestas/list/:id', to:'propuestas#list'
          end
       end
 
