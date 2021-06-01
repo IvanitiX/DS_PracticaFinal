@@ -54,7 +54,7 @@ class TrabajosController < ApplicationController
       end
     end
 
-	 proponer_trabajo()
+	 proponer_trabajo(create_params[:presupuesto])
 
   end
 
@@ -97,17 +97,17 @@ class TrabajosController < ApplicationController
       params.require(:trabajo).permit(:descripcion, :localizacion, :presupuesto, :tipotrabajo, :Id_tecnico)
     end
 
-	 def proponer_trabajo
+	 def proponer_trabajo(presupuesto)
 
-		 # valoracion = @@valoracion
-		 # num_trabajos = @@num_trabajos
+		  valoracion = 5
+		 num_trabajos = 10
 		 #
-		 # records_array = []
-		 # while records_array.length == 0
+ records_array = []
+ while records_array.size == 0 and valoracion > 0
 
 			 seleccion = " SELECT * FROM tecnicos "
-			 # condiciones = " WHERE valoracion > #{valoracion} AND num_trabajos < #{num_trabajos} ";
-			 condiciones = " WHERE valoracion > 5 AND num_trabajos < 10";
+			  condiciones = " WHERE valoracion > #{valoracion} AND num_trabajos < #{num_trabajos} ";
+			# condiciones = " WHERE valoracion > 5 AND num_trabajos < 10";
 			 preferencia = " ORDER BY valoracion DESC, num_trabajos ASC "
 
 			 consulta = seleccion + condiciones + preferencia;
@@ -116,16 +116,16 @@ class TrabajosController < ApplicationController
 
 			 records_array.each do |record|
 			   consulta =
-			 	  "INSERT INTO propuestas(trabajo, tecnico)
-			 	  VALUES(#{@trabajo.id}, #{record[0]})"
+			 	  "INSERT INTO propuestas(trabajo, tecnico, presupuesto)
+			 	  VALUES(#{@trabajo.id}, #{record[0]}, #{presupuesto})"
 
 			   ActiveRecord::Base.connection.execute(consulta)
 
 			 end
 
-			#  valoracion = valoracion - 1
-			#  num_trabajos = num_trabajos +1
-		 # end
+  valoracion = valoracion - 1
+  num_trabajos = num_trabajos +1
+ end
 	 end
 
 	 def comprobarAsignacionTecnico

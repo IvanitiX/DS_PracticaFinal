@@ -27,6 +27,10 @@
 	  <%= form.collection_select :tipotrabajo, TipoTrabajo.all, :Tipo, :Tipo %>
   </div>
 
+  <div class="field">
+    <p>Presupuesto máximo</p>
+    <%= form.text_field :presupuesto %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
