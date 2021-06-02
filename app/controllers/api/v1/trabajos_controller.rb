@@ -47,7 +47,7 @@ def destroy
 end
 private
 def trabajo_params
-      params.permit(:descripcion, :localizacion, :presupuesto, :tipotrabajo)
+      params.permit(:descripcion, :localizacion, :presupuesto, :tipotrabajo, :Id_tecnico);
 end
         end
     end

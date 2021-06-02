@@ -49,7 +49,7 @@ def destroy
 end
 private
 def tecnico_params
-      params.permit(:nombre, :apellidos, :email, :contrasena, :tipo_tecnico)
+      params.permit(:nombre, :apellidos, :email, :contrasena, :tipo_tecnico, :num_trabajos)
 end
         end
     end

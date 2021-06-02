@@ -26,10 +26,25 @@ module Api
                 end
             end
 
+            def update
+                @propuesta = Propuestas.find(params[:id])
+               
+                 if @propuesta.update(propuesta_params)
+                       render json: @propuesta, status: :ok
+                     else
+                       render json: @propuesta.errors, status: :unprocessable_entity
+                     end
+               end
+
 				# GET /tecnicos/new
 			   def new
-			     @tecnico = Tecnico.new
+			     @tecnico = Propuestas.new
 			   end
+
+               private
+                def propuesta_params
+                    params.permit(:estado);
+                end
         end
     end
  end
