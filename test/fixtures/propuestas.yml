@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id_tecnico: MyString
-  id_trabajo: MyString
+  tecnico: 2
+  trabajo: 1
+  estado: RECHAZADO
+  presupuesto: 1234
 
 two:
-  id_tecnico: MyString
-  id_trabajo: MyString
+  tecnico: 1
+  trabajo: 2
+  estado: PENDIENTE
+  presupuesto: 210

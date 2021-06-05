@@ -54,6 +54,7 @@ class TrabajosController < ApplicationController
       end
     end
 
+      print create_params
 	 proponer_trabajo(create_params[:presupuesto])
 
   end
@@ -73,6 +74,36 @@ class TrabajosController < ApplicationController
       end
     end
   end
+
+  def valorar
+
+  end
+
+  def valorar_bd
+    print params
+    tecnico = Tecnico.find_by(id: params[:id])
+    if (tecnico != nil)
+      valor = params[:valoracion].to_i
+      if (valor > 10)
+        valor = 10
+      elsif (valor < 0)
+        valor = 0
+      end
+
+      valoracion = (tecnico[:valoracion] * (tecnico[:num_trabajos] - 1))/tecnico[:num_trabajos] + valor/tecnico[:num_trabajos]
+
+      consulta = "UPDATE tecnicos SET valoracion = #{valoracion} WHERE id = #{tecnico[:id]}"
+      records_array = ActiveRecord::Base.connection.execute(consulta)
+
+      print params[:trabajo]
+      consulta = "UPDATE propuestas SET estado = 'TERMINADO' WHERE trabajo = #{params[:trabajo]} and tecnico= #{tecnico[:id]}"
+      records_array = ActiveRecord::Base.connection.execute(consulta)
+      redirect_back_or trabajos_path
+    else
+      redirect_back_or trabajos_path
+    end
+  end
+
 
   # DELETE /trabajos/1 or /trabajos/1.json
   def destroy
@@ -94,10 +125,11 @@ class TrabajosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def trabajo_params
-      params.require(:trabajo).permit(:descripcion, :localizacion, :presupuesto, :tipotrabajo, :Id_tecnico)
+      params.require(:trabajo).permit(:descripcion, :localizacion, :presupuesto, :tipotrabajo, :Id_tecnico, :Id_cliente, :valoracion, :trabajoid)
     end
 
 	 def proponer_trabajo(presupuesto)
+    print "Proponiendo trabajo"
 
 		  valoracion = 5
 		 num_trabajos = 10
@@ -132,7 +164,7 @@ class TrabajosController < ApplicationController
 
 		 # preparamos consulta para obtener propuestas de este trabajo que
 		  # hayan sido aceptadas por los tecnicos y dispongan de un presupuesto
-		 seleccion = "SELECT tecnico, presupuesto FROM propuestas"
+		 seleccion = "SELECT tecnico, presupuesto,id FROM propuestas"
 		 condiciones = " WHERE trabajo = #{@trabajo.id} AND (estado ='CONFIRMADO' OR estado = 'CONFIRMADA')";
 		 preferencia = " ORDER BY presupuesto ASC";
 
@@ -146,16 +178,20 @@ class TrabajosController < ApplicationController
 		 end
 
 		 if (primero.length > 0)
+      print primero
 			 # actualizar este trabajo
 			 @trabajo.Id_tecnico = primero[0]
 			 @trabajo.presupuesto = primero[1]
 
 			 @trabajo.save
 
+      consulta = "UPDATE propuestas SET estado = 'ASIGNADO' WHERE id = #{primero[2]}"
+      records_array = ActiveRecord::Base.connection.execute(consulta)
+
 			 # params[:Id_tecnico] = @trabajo.Id_tecnico
 			 # params[:presupuesto] = @trabajo.presupuesto
 			 #
-		 	 # @trabajo.update(params)
+		 	#@trabajo.update(params)
 		 else
 			 print("No hay propuestas confirmadas todavia lo siento")
 		 end

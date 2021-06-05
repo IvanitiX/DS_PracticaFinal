@@ -19,7 +19,13 @@
   <tbody>
     <% @trabajos.each do |trabajo| %>
       <tr>
-        <td><%= trabajo.descripcion %></td>
+        <% propuestas = Propuestas.find_by(trabajo: trabajo.id, estado: "ASIGNADO") %>
+        <% if  propuestas != nil %>
+          <td><%= trabajo.descripcion %> - <a href="/trabajos/valorar/<%= propuestas.tecnico%>/<%= trabajo.id%>">VALORAR</a> </td>
+        <% else %>
+          <td><%= trabajo.descripcion %> </td>
+        <% end %>
+        
         <td><%= trabajo.localizacion %></td>
         <td>
 			  <% if trabajo.presupuesto %>

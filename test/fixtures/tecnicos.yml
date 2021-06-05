@@ -1,0 +1,8 @@
+one:
+  nombre: Samu
+  apellidos: Polo
+  valoracion: 6
+  email: "a@b.c"
+  contrasena: "manoooolloooo"
+  num_trabajos: 7
+  tipo_tecnico: ALBANILERIA

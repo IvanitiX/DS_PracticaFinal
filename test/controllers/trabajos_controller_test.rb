@@ -4,45 +4,28 @@ class TrabajosControllerTest < ActionDispatch::IntegrationTest
   setup do
     @trabajo = trabajos(:one)
   end
-
-  test "should get index" do
-    get trabajos_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_trabajo_url
-    assert_response :success
-  end
-
-  test "should create trabajo" do
+  
+  test "Al crear trabajo se creará una propuesta" do
     assert_difference('Trabajo.count') do
-      post trabajos_url, params: { trabajo: { descripcion: @trabajo.descripcion, localizacion: @trabajo.localizacion, presupuesto: @trabajo.presupuesto } }
+      post clientes_url, params: {cliente: {nombre: "Adrian", apellidos: "Lastra", domicilio: "Calle A, 420", correo: "adri@correo.es", contrasena: "1234"}}
+      post trabajos_url, params: { trabajo: { descripcion: @trabajo.descripcion, localizacion: @trabajo.localizacion, presupuesto: @trabajo.presupuesto} }
+    end
+
+    assert_difference('Propuestas.count') do
+      post clientes_url, params: {cliente: {nombre: "Adrian", apellidos: "Lastra", domicilio: "Calle A, 420", correo: "adri@correo.es", contrasena: "1234"}}
+      post trabajos_url, params: { trabajo: { descripcion: @trabajo.descripcion, localizacion: @trabajo.localizacion, presupuesto: @trabajo.presupuesto} }
     end
 
     assert_redirected_to trabajo_url(Trabajo.last)
   end
 
-  test "should show trabajo" do
-    get trabajo_url(@trabajo)
-    assert_response :success
+  test "No puede verse un trabajo que no existe" do
+    get "/api/v1/trabajos/0"
+    assert "nothing"
   end
 
-  test "should get edit" do
-    get edit_trabajo_url(@trabajo)
-    assert_response :success
-  end
+  
 
-  test "should update trabajo" do
-    patch trabajo_url(@trabajo), params: { trabajo: { descripcion: @trabajo.descripcion, localizacion: @trabajo.localizacion, presupuesto: @trabajo.presupuesto } }
-    assert_redirected_to trabajo_url(@trabajo)
-  end
 
-  test "should destroy trabajo" do
-    assert_difference('Trabajo.count', -1) do
-      delete trabajo_url(@trabajo)
-    end
 
-    assert_redirected_to trabajos_url
-  end
 end

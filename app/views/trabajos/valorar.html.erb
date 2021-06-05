@@ -1,0 +1,19 @@
+<% if session[:user_id] == nil%>
+    <%= redirect_back_or root_path %>
+<% end %>
+
+<div class="centrado">
+    <div class="titulo">
+        <h1>Valore al técnico</h1>
+    </div>
+    <div class="cuerpo_centro">
+       <form action="/trabajos/valorado/<%= params[:id]%>/<%= params[:trabajo]%>" method="GET">
+        <label for="Valoracion">Valoración </label>
+        <input type="number" name="valoracion">
+        <label for="Trabajoid">ID. Trabajo </label>
+        <input type="number" name="trabajoid" value="<%= params[:trabajo]%>" disabled>
+        <button type="submit">Enviar valoración</button>
+       </form>
+        <%= link_to 'Back', trabajos_path %>
+    </div>
+</div>

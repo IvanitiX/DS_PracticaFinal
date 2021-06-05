@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post '/logout',  to: 'sessions#destroy'
       delete '/logout',  to: 'sessions#destroy'
       get '/profile', to: 'clientes#profile'
+      get '/trabajos/valorar/:id/:trabajo', to: 'trabajos#valorar'
+      get  '/trabajos/valorado/:id/:trabajo', to: 'trabajos#valorar_bd'
 end
 
 

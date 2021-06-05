@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nombre: MyString
-  apellidos: MyString
-  domicilio: MyString
-  correo: MyString
-  contrasena: MyString
+  nombre: Santiago
+  apellidos: Sosemadinho
+  domicilio: Avenida do Sosemado 14
+  correo: santi@sosemado.br
+  contrasena: 03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4
 
 two:
-  nombre: MyString
-  apellidos: MyString
-  domicilio: MyString
-  correo: MyString
-  contrasena: MyString
+  nombre: Hamon
+  apellidos: Hahmid
+  domicilio: Calle Akistan Onoh 12
+  correo: hamoon@hamonoh.ar
+  contrasena: hammoooooooooon

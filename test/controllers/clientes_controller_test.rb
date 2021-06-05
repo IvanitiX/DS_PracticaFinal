@@ -5,44 +5,61 @@ class ClientesControllerTest < ActionDispatch::IntegrationTest
     @cliente = clientes(:one)
   end
 
-  test "should get index" do
-    get clientes_url
-    assert_response :success
+  test "No puede verse un cliente que no existe" do
+    get "/api/v1/clientes/0"
+    assert "nothing"
   end
 
-  test "should get new" do
-    get new_cliente_url
-    assert_response :success
-  end
-
-  test "should create cliente" do
+  test "Crea un cliente, y me miras los datos desde web y desde API" do
     assert_difference('Cliente.count') do
-      post clientes_url, params: { cliente: { apellidos: @cliente.apellidos, contrasena: @cliente.contrasena, correo: @cliente.correo, domicilio: @cliente.domicilio, nombre: @cliente.nombre } }
+       post clientes_url, params: {cliente: {nombre: "Adrian", apellidos: "Lastra", domicilio: "Calle A, 420", correo: "adri@correo.es", contrasena: "1234"}}
     end
 
-    assert_redirected_to cliente_url(Cliente.last)
+    cliente = Cliente.find_by(correo: "adri@correo.es")
+
+    id= cliente[:id]
+
+    assert cliente[:nombre] == "Adrian"
+
+    cliente = get "/api/v1/clientes/#{id}"
+    assert cliente == 200
+
   end
 
-  test "should show cliente" do
-    get cliente_url(@cliente)
+  test "No puedes acceder donde no estés registrado" do
+    get "/trabajos"
+    assert_redirected_to root_path
+
+    post clientes_url, params: {cliente: {nombre: "Adrian", apellidos: "Lastra", domicilio: "Calle A, 420", correo: "adri@correo.es", contrasena: "1234"}}
+    get "/trabajos"
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_cliente_url(@cliente)
-    assert_response :success
-  end
-
-  test "should update cliente" do
-    patch cliente_url(@cliente), params: { cliente: { apellidos: @cliente.apellidos, contrasena: @cliente.contrasena, correo: @cliente.correo, domicilio: @cliente.domicilio, nombre: @cliente.nombre } }
-    assert_redirected_to cliente_url(@cliente)
-  end
-
-  test "should destroy cliente" do
-    assert_difference('Cliente.count', -1) do
-      delete cliente_url(@cliente)
+  test "Si borramos un cliente, ¿sus referencias se borrarían?" do
+    assert_difference('Cliente.count') do
+      post clientes_url, params: {cliente: {nombre: "Adrian", apellidos: "Lastra", domicilio: "Calle A, 420", correo: "adri@correo.es", contrasena: "1234"}}
     end
 
-    assert_redirected_to clientes_url
+    cliente = Cliente.find_by(correo:"adri@correo.es")
+
+    assert_difference('Trabajo.count') do
+      post trabajos_url, params: { trabajo: { descripcion: "Enlucir pared", localizacion: "ª", presupuesto: 234.56} }
+   end
+
+  
+   antes_trabajos = Trabajo.count
+   antes_clientes = Cliente.count
+   assert_raises(ActiveRecord::InvalidForeignKey) do
+    delete "/clientes/#{cliente[:id]}"
+   end
+    rescue 
+      despues_trabajos = Trabajo.count
+      despues_clientes = Cliente.count
+
+      assert_equal antes_clientes - 1, despues_clientes
+      assert_equal antes_trabajos - 1, despues_trabajos
+   
+
   end
+
 end

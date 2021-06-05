@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  descripcion: MyString
-  localizacion: MyString
-  presupuesto: 1.5
+  descripcion: Alicatar pared bano
+  localizacion: Mirador de Montepinar 2
+  presupuesto: 1000
+  Id_cliente: 1
 
 two:
-  descripcion: MyString
-  localizacion: MyString
-  presupuesto: 1.5
+  descripcion: Reparar Grifo
+  localizacion: Calle Falsa 123
+  presupuesto: 50
+  Id_cliente: 2

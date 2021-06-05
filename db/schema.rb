@@ -30,21 +30,13 @@ ActiveRecord::Schema.define(version: 2021_05_24_154715) do
     t.index ["estado"], name: "index_estado_propuesta_on_estado", unique: true
   end
 
-  create_table "propuesta", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "tecnico_id", null: false
-    t.bigint "trabajo_id", null: false
-    t.bigint "estado_propuesta_id", null: false
-    t.string "estado", default: "PENDIENTE"
-    t.index ["estado_propuesta_id"], name: "index_propuesta_on_estado_propuesta_id"
-    t.index ["tecnico_id"], name: "index_propuesta_on_tecnico_id"
-    t.index ["trabajo_id"], name: "index_propuesta_on_trabajo_id"
-  end
-
   create_table "propuestas", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "tecnico"
     t.bigint "trabajo"
     t.column "estado", "enum('CONFIRMADO','CONFIRMADA','RECHAZADO','RECHAZADA','PENDIENTE')", default: "PENDIENTE"
     t.float "presupuesto", default: -1.0
+    t.index ["tecnico"], name: "tecnicoIdMustExist"
+    t.index ["trabajo"], name: "IdTrabajoMustExist"
   end
 
   create_table "tecnicos", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -80,9 +72,8 @@ ActiveRecord::Schema.define(version: 2021_05_24_154715) do
     t.index ["tipotrabajo"], name: "TipoTrabajoInTrabajos"
   end
 
-  add_foreign_key "propuesta", "estado_propuesta", column: "estado_propuesta_id"
-  add_foreign_key "propuesta", "tecnicos"
-  add_foreign_key "propuesta", "trabajos"
+  add_foreign_key "propuestas", "tecnicos", column: "tecnico", name: "tecnicoIdMustExist"
+  add_foreign_key "propuestas", "trabajos", column: "trabajo", name: "IdTrabajoMustExist"
   add_foreign_key "tecnicos", "tipo_trabajos", column: "tipo_tecnico", primary_key: "Tipo", name: "Foreign_TipoTrabajo"
   add_foreign_key "trabajos", "clientes", column: "Id_cliente", name: "IDClienteInClientes"
   add_foreign_key "trabajos", "tecnicos", column: "Id_tecnico", name: "TecnicosAsignadosRegistrados"
