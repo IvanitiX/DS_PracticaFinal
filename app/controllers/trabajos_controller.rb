@@ -90,7 +90,9 @@ class TrabajosController < ApplicationController
         valor = 0
       end
 
-      valoracion = (tecnico[:valoracion] * (tecnico[:num_trabajos] - 1))/tecnico[:num_trabajos] + valor/tecnico[:num_trabajos]
+      if tecnico[:num_trabajos] > 1 
+        valoracion = (tecnico[:valoracion] * (tecnico[:num_trabajos] - 1))/tecnico[:num_trabajos] + valor/tecnico[:num_trabajos]
+      end
 
       consulta = "UPDATE tecnicos SET valoracion = #{valoracion} WHERE id = #{tecnico[:id]}"
       records_array = ActiveRecord::Base.connection.execute(consulta)
