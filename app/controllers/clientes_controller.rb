@@ -42,7 +42,7 @@ class ClientesController < ApplicationController
     respond_to do |format|
       if @cliente.save
         session[:user_id] = @cliente.id
-        format.html { redirect_to "/profile", notice: "El Cliente se ha creado correctamente" }
+        format.html { redirect_to profile, notice: "El Cliente se ha creado correctamente" }
         format.json { render :show, status: :created, location: @cliente }
       else
         format.html { render :new, status: :unprocessable_entity }
